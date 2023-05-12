@@ -11,8 +11,8 @@ import SwiftUI
 struct PlacesearchApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(ContentModel())
+            TabBar()
+    
         }
     }
 }

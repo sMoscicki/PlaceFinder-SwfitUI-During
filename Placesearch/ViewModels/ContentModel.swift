@@ -147,8 +147,6 @@ class ContentModel: NSObject, CLLocationManagerDelegate, ObservableObject{
                             }
                         }
                        
-                        
-                        
                     }catch{
                         print("Error \(error)")
                     }
