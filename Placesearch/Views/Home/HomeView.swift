@@ -11,107 +11,181 @@ struct HomeView: View {
     
     @EnvironmentObject var model: ContentModel
     
-    
-    
     enum categoryList: String, CaseIterable, Identifiable{
         case mostRated, delivery, pickup
         var id: Self {self}
     }
     
-    @State private var selectedCategory: categoryList = .mostRated
-    
+    @State var selectedCategory: categoryList = .mostRated
+        
+
     var body: some View {
         
+
+        
         NavigationView{
-            ScrollView{
-                VStack{
-                    
-                    Picker("Category", selection: $selectedCategory){
-                        Text("Most Rated").tag(categoryList.mostRated)
-                        Text("Delivery").tag(categoryList.delivery)
-                        Text("Pick Up").tag(categoryList.pickup)
-                    }
-                    .padding()
-                    .pickerStyle(.segmented)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    
-                    
-                    Divider()
-                    
-                    HStack{
-                        Text("Top Rated Restaurants")
+            VStack(spacing: 0){
+                Picker("Category", selection: $selectedCategory){
+                    Text("Most Rated")
+                        .font(Font.custom("OktaUltraLight", size: 20))
+                        .tag(categoryList.mostRated)
+                    Text("Delivery")
+                        .font(Font.custom("OktaUltraLight", size: 20))
+                        .tag(categoryList.delivery)
+                    Text("Pick Up")
+                        .font(Font.custom("OktaUltraLight", size: 20))
+                        .tag(categoryList.pickup)
+                }
+                .padding()
+                .pickerStyle(.segmented)
+                .foregroundColor(.white)
+                .background(Color("TabBarColor"))
+                
+                ScrollView{
+    
+                    VStack(spacing: 1){
                         
-                        Spacer()
-                        
-                        Image("colorStar")
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                        
-                    }
-                    .padding()
-                    
-                    Divider()
-                    
-                    ScrollView(.horizontal, showsIndicators: true){
-                        HStack(spacing: 10){
-                            ForEach(model.restaurant){ business in
+                        if selectedCategory == .mostRated{
+                            
+                            ZStack{
+                                Image("restaurantBackground1")
+                                    .resizable()
+                                    .frame(height: 200)
+                                    .aspectRatio(16/9, contentMode: .fill)
                                 
-                                if business.rating! >= 4.0 {
-                                    NavigationLink {
-                                        BusinessDetail(business: business)
-                                    } label: {
-                                        MostRatingView(business: business)
-                                    }
+                                
+                                VStack(alignment: .leading){
+                                    Text("The best Restaurants and Sights in your area")
+                                        .font(Font.custom("OktaItalic", size: 30))
+                                        .bold()
+                                        .foregroundColor(.white)
+                                        .padding()
+                                        
+                                        
                                     
+                                    Spacer()
                                 }
+                                .padding()
                                 
                             }
-                        }
-                        .padding()
-                    }
-                    Divider()
-                    
-                    HStack{
-                        Text("Delivery Available")
-                        
-                        Spacer()
-                        
-                        Image("delivery")
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                    }
-                    .padding()
-                    
-                    Divider()
-                    
-                    ScrollView(.horizontal, showsIndicators: true){
-                        HStack(spacing: 10){
-                            ForEach(model.restaurant){ business in
+                            
+                            
+                            HStack{
+                                Text("Top Rated Restaurants")
+                                    .font(Font.custom("OktaUltraLight", size: 25))
                                 
-                                if (business.transactions?.description.contains("delivery") != nil){
-                                    NavigationLink {
-                                        BusinessDetail(business: business)
-                                    } label: {
-                                        DeliveryAvailableView(business: business)
+                                Spacer()
+                                
+                                Image("colorStar")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                
+                            }
+                            .padding()
+                            
+                            
+                            ScrollView(.horizontal, showsIndicators: true){
+                                HStack(spacing: 15){
+                                    ForEach(model.restaurant){ business in
+                                        
+                                        if business.rating! >= 4.0 {
+                                            NavigationLink {
+                                                BusinessDetail(business: business)
+                                            } label: {
+                                                MostRatingView(business: business)
+                                            }
+                                            
+                                        }
+                                        
                                     }
                                 }
-                                Divider()
+                                .padding()
                             }
+                            
+                            Divider()
+                            
+                            HStack{
+                                Text("Top Rated Sights")
+                                    .font(Font.custom("OktaItalic", size: 25))
+                                
+                                Spacer()
+                                
+                                Image("telescope")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                            }
+                            .padding()
+                            
+                            ScrollView(.horizontal, showsIndicators: true){
+                                HStack(spacing: 15){
+                                    ForEach(model.sight){ business in
+                                        
+                                        if business.rating! >= 4.0 {
+                                            NavigationLink {
+                                                BusinessDetail(business: business)
+                                            } label: {
+                                                MostRatingView(business: business)
+                                            }
+
+                                        }
+                                        
+                                    }
+                                }
+                                .padding()
+                            }
+                            
+                        }else if selectedCategory == .delivery{
+                            
+                            HStack{
+                                Text("Delivery Available")
+                                
+                                Spacer()
+                                
+                                Image("delivery")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                            }
+                            .padding()
+                            
+                            
+                            ScrollView(.horizontal, showsIndicators: true){
+                                HStack(spacing: 10){
+                                    ForEach(model.restaurant){ business in
+                                        
+                                        if (business.transactions?.description.contains("delivery") != nil){
+                                            NavigationLink {
+                                                BusinessDetail(business: business)
+                                            } label: {
+                                                DeliveryAvailableView(business: business)
+                                            }
+                                        }
+                                        Divider()
+                                    }
+                                }
+                                .padding()
+                            }
+                            
+                            
+                            
+                        }else if selectedCategory == .pickup{
+                            
                         }
-                        .padding()
+                        
+                        
+                        Divider()
+                        
                     }
+                    
                     
                 }
+                .ignoresSafeArea()
+                .padding(.bottom, 60)
+                
             }
+            .background(Color("TabBarColor").opacity(0.4))
         }
         .accentColor(.black)
+        
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-            .environmentObject(ContentModel())
-    }
-}

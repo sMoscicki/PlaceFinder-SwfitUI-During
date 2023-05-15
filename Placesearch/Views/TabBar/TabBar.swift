@@ -21,7 +21,7 @@ struct TabBar: View {
         
         ZStack(alignment: .bottom) {
             TabView(selection: $selectTab){
-                    HomeView()
+                HomeView(selectedCategory: .mostRated)
                         .tag("Home")
                     BusinessList()
                         .tag("Category")

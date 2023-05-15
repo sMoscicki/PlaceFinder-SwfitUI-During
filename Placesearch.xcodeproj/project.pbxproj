@@ -29,6 +29,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04654C102A1272DE004571E1 /* OktaItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = OktaItalic.otf; sourceTree = "<group>"; };
+		04654C112A1272DE004571E1 /* OktaUltraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = OktaUltraLight.otf; sourceTree = "<group>"; };
+		04654C122A127323004571E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		049652852A0E7BFE0071E42C /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		049652942A0E8C8E0071E42C /* MapDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDetailView.swift; sourceTree = "<group>"; };
 		049652A42A0E90B30071E42C /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
@@ -62,6 +65,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04654C0F2A1272CC004571E1 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				04654C102A1272DE004571E1 /* OktaItalic.otf */,
+				04654C112A1272DE004571E1 /* OktaUltraLight.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		049652932A0E8B170071E42C /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +132,8 @@
 		04D3EA6B2A0BF6EC00178499 /* Placesearch */ = {
 			isa = PBXGroup;
 			children = (
+				04654C122A127323004571E1 /* Info.plist */,
+				04654C0F2A1272CC004571E1 /* Fonts */,
 				04D3EA822A0BFF3400178499 /* Helpers */,
 				04D3EA7A2A0BF74900178499 /* Views */,
 				04D3EA7C2A0BF75800178499 /* ViewModels */,
@@ -401,6 +415,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Placesearch/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Placesearch/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Grant permission to find famous place";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -430,6 +445,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Placesearch/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Placesearch/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Grant permission to find famous place";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
