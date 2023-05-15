@@ -2,7 +2,7 @@ import Foundation
 
 struct Constants {
     
-    static var apiKey = "c-Ky_r-5MF7buh9N-h2s7NcOzdGfwJAyGvJ9tGk2t5JH-oQb2fbky_82ElZFBVtlQDz4T8OvvXpm7V084S8cznYDNkLNW-xNkRKK8_7rC5ghRw6rVFmKAdTS3rhPZHYx"
+    static var apiKey = "PZbcG22Xkg2o6ha7pWy5niz72HJkpYQtV-Dh_rhCU_QGs8EcH416zsponFACnRkc5DJZdT-IvTKglJ3pKFV7U_94-jwWYCECeDgtWUwN0b85BG9OWSEzSBO-t2leZHYx"
     static var apiUrl = "https://api.yelp.com/v3/businesses/search"
     static var restaurantKey = "restaurants"
     static var sightsKey = "arts"

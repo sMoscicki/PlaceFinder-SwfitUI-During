@@ -9,29 +9,30 @@ import SwiftUI
 
 struct TabBar: View {
     
-    @State var selectTab = "1"
+    @State var selectTab = "Category"
     
     init(){
         UITabBar.appearance().isHidden = true
     }
     
-    let tabs = ["Home", "List", "Map", "Profile"]
+    let tabs = ["Home", "Category", "Map", "Profile"]
     
     var body: some View {
         
         ZStack(alignment: .bottom) {
             TabView(selection: $selectTab){
-                
-                Text("coming soon")
-                    .tag("Home")
-                ListView()               
-                    .tag("List")
-                MapDetailView()
-                    .tag("Map")
-                Text("coming soon")
-                    .tag("Profile")
+                    HomeView()
+                        .tag("Home")
+                    BusinessList()
+                        .tag("Category")
+                    BusinessMap()
+                        .tag("Map")
+                    Text("coming soon")
+                        .tag("Profile")
                   
             }
+            .environmentObject(ContentModel())
+            
             HStack{
                 ForEach(tabs, id: \.self){ tab in
                         Spacer()

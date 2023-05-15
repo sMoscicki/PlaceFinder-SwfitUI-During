@@ -1,163 +1,179 @@
 import Foundation
 import CoreLocation
 
-
 class ContentModel: NSObject, CLLocationManagerDelegate, ObservableObject{
     
-    @Published var restaurant = [Business]()
-    @Published var sight = [Business]()
-    @Published var boating = [Business]()
-    @Published var gym = [Business]()
-    @Published var paintball = [Business]()
-    @Published var football = [Business]()
-    @Published var waterPark = [Business]()
-    @Published var barber = [Business]()
+        @Published var restaurant = [Business]()
+        @Published var sight = [Business]()
+        @Published var boating = [Business]()
+//        @Published var gym = [Business]()
+//        @Published var paintball = [Business]()
+//        @Published var football = [Business]()
+//        @Published var waterPark = [Business]()
+//        @Published var barber = [Business]()
     
     var locationManager = CLLocationManager()
     
-    override init(){
+    @Published var authorizationState = CLAuthorizationStatus.notDetermined
+    
+   override init(){
+       
+       // init method of NSObject
+       super.init()
         
-        super.init()
-        
+        //set content model as the delagate of the location manager
         locationManager.delegate = self
         
-        //Request permission from the User
+        //Request permision from the User
         locationManager.requestWhenInUseAuthorization()
         
-        //TODO: Start geolocating the User
+        //Start geolocating the User, after we ger permission
         //locationManager.startUpdatingLocation()
-  
     }
     
-    //MARK: - Location manager delegate methods
+    // MARK: Location Manager Delegate Methods
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         
-        if locationManager.authorizationStatus == .authorizedAlways ||
-            locationManager.authorizationStatus == .authorizedWhenInUse{
+        // update the authorization property
+        
+        authorizationState = locationManager.authorizationStatus
+        
+        if locationManager.authorizationStatus == .authorizedAlways || locationManager.authorizationStatus == .authorizedWhenInUse {
             
-            // we have permision
+            //We have permission
             
+            //Start geolocating the User, after we ger permission
             locationManager.startUpdatingLocation()
             
         }else if locationManager.authorizationStatus == .denied{
-            // We dont have permision
+            
+            //We dont have permission
+            
+            
         }
-        
     }
     
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // Give location of the User
         
-        //Gives us the location of the User
-        print(locations.first ?? "no location")
-        
-        //TODO: If we have the coordinates of the user, send into Yelp Api
         let userLocation = locations.first
+        print(locations.first ?? "no location")
         
         if userLocation != nil {
             
+            //Have location
             
             //Stop requesting the location after we get it once
             locationManager.stopUpdatingLocation()
             
-            getBusiness(category: Constants.restaurantKey, location: userLocation!)
-            getBusiness(category: Constants.sightsKey, location: userLocation!)
-            getBusiness(category: Constants.boatingKey, location: userLocation!)
-            getBusiness(category: Constants.gymsKey, location: userLocation!)
-            getBusiness(category: Constants.paintballKey, location: userLocation!)
-            getBusiness(category: Constants.footballKey, location: userLocation!)
-            getBusiness(category: Constants.waterparksKey, location: userLocation!)
-            getBusiness(category: Constants.barbersKey, location: userLocation!)
+            //MARK: Yelp API
+            getBusinesses(category: Constants.restaurantKey, location: userLocation!)
+            getBusinesses(category: Constants.sightsKey, location: userLocation!)
+//            getBusinesses(category: Constants.boatingKey, location: userLocation!)
+//            getBusinesses(category: Constants.gymsKey, location: userLocation!)
+//            getBusinesses(category: Constants.paintballKey, location: userLocation!)
+//            getBusinesses(category: Constants.footballKey, location: userLocation!)
+//            getBusinesses(category: Constants.waterparksKey, location: userLocation!)
+//            getBusinesses(category: Constants.barbersKey, location: userLocation!)
         }
- 
+      
     }
     
-    //MARK: - Yelp Api
+    //MARK: Yelp Api methods
     
-    func getBusiness(category: String, location: CLLocation){
+    func getBusinesses(category: String, location: CLLocation){
         
         //Create URL
-        
         //Method 1
-                
-                /*
-                let urlString = "https://api.yelp.com/v3/businesses/search?latitude=\(location.coordinate.latitude)&longitude=\(location.coordinate.longitude)&categories=\(category)&limit=6"
-                let url = URL(string: urlString)
-                */
+        
+        /*
+        let urlString = "https://api.yelp.com/v3/businesses/search?latitude=\(location.coordinate.latitude)&longitude=\(location.coordinate.longitude)&categories=\(category)&limit=6"
+        let url = URL(string: urlString)
+        */
         
         //Method 2
         var urlComponents = URLComponents(string: Constants.apiUrl)
         urlComponents?.queryItems = [
-
             URLQueryItem(name: "latitude", value: String(location.coordinate.latitude)),
             URLQueryItem(name: "longitude", value: String(location.coordinate.longitude)),
             URLQueryItem(name: "categories", value: category),
             URLQueryItem(name: "limit", value: "20")
-
         ]
         
         let url = urlComponents?.url
         
-        if url != nil {
+        if let url = url {
             
-            //Create a URL Request
-            var request = URLRequest(url: url! , cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 20.0)
+        
+            //Create URL Request
+            var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10.0)
             request.httpMethod = "GET"
             request.addValue("Bearer \(Constants.apiKey)", forHTTPHeaderField: "Authorization")
-            
             //Create URLSession
-            let session = URLSession.shared
+            let sesion = URLSession.shared
             
             //Create Data Task
-            let dataTask = session.dataTask(with: request){ data, response, error in
+            let dataTask = sesion.dataTask(with: request) { data, response, error in
                 
                 //Check that there isnt an error
                 if error == nil{
                     
+                    //Parse json
                     do{
                         
-                        let result = try JSONDecoder().decode(BusinessSearch.self, from: data!)
+                        let decode = JSONDecoder()
+                        
+                        let result = try decode.decode(BusinessSearch.self, from: data!)
                         
                         //Sort businesses
                         var businesses = result.businesses
-                        businesses.sort{ (b1, b2) -> Bool in
+                        businesses.sort { (b1, b2) -> Bool in
                             return b1.distance ?? 0 < b2.distance ?? 0
                             
                         }
                         
+                        
+                        // Call the get image function of the business
+                        for b in businesses{
+                            b.getImageData()
+                        }
+                        
                         DispatchQueue.main.async {
                             switch category{
+                                
                             case Constants.restaurantKey:
                                 self.restaurant = businesses
                             case Constants.sightsKey:
                                 self.sight = businesses
-                            case Constants.boatingKey:
-                                self.boating = businesses
-                            case Constants.gymsKey:
-                                self.gym = businesses
-                            case Constants.paintballKey:
-                                self.paintball = businesses
-                            case Constants.footballKey:
-                                self.football = businesses
-                            case Constants.waterparksKey:
-                                self.waterPark = businesses
-                            case Constants.barbersKey:
-                                self.barber = businesses
-                            default:
-                                break
+//                            case Constants.boatingKey:
+//                                self.boating = businesses
+//                            case Constants.gymsKey:
+//                                self.gym = businesses
+//                            case Constants.paintballKey:
+//                                self.paintball = businesses
+//                            case Constants.footballKey:
+//                                self.football = businesses
+//                            case Constants.waterparksKey:
+//                                self.waterPark = businesses
+//                            case Constants.barbersKey:
+//                                self.barber = businesses
+                                default:
+                                    break
                             }
                         }
-                       
-                    }catch{
-                        print("Error \(error)")
+                            
                     }
-    
+                    catch{
+                        print(error)
+                    }
+                    
                 }
-                
             }
+            //Start the Data Task
             dataTask.resume()
             
-            
         }
-        
     }
+    
 }
