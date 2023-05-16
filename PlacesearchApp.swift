@@ -11,7 +11,7 @@ import SwiftUI
 struct PlacesearchApp: App {
     var body: some Scene {
         WindowGroup {
-            TabBar()
+            LaunchView()
     
         }
     }

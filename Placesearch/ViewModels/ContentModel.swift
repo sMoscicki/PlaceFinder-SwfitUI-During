@@ -31,6 +31,13 @@ class ContentModel: NSObject, CLLocationManagerDelegate, ObservableObject{
         //locationManager.startUpdatingLocation()
     }
     
+    func requestGeolocationPermission() {
+          
+          // Request permission from the user
+          locationManager.requestWhenInUseAuthorization()
+      }
+    
+    
     // MARK: Location Manager Delegate Methods
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         

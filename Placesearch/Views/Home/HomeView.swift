@@ -16,22 +16,20 @@ struct HomeView: View {
         var id: Self {self}
     }
     
-    @State var selectedCategory: categoryList = .mostRated
+    @State var selectedCategory: categoryList = .pickup
         
-
     var body: some View {
         
 
-        
         NavigationView{
             VStack(spacing: 0){
                 Picker("Category", selection: $selectedCategory){
-                    Text("Most Rated")
-                        .font(Font.custom("OktaUltraLight", size: 20))
-                        .tag(categoryList.mostRated)
                     Text("Delivery")
                         .font(Font.custom("OktaUltraLight", size: 20))
                         .tag(categoryList.delivery)
+                    Text("Most Rated")
+                        .font(Font.custom("OktaUltraLight", size: 20))
+                        .tag(categoryList.mostRated)
                     Text("Pick Up")
                         .font(Font.custom("OktaUltraLight", size: 20))
                         .tag(categoryList.pickup)
@@ -84,7 +82,7 @@ struct HomeView: View {
                             .padding()
                             
                             
-                            ScrollView(.horizontal, showsIndicators: true){
+                            ScrollView(.horizontal, showsIndicators: false){
                                 HStack(spacing: 15){
                                     ForEach(model.restaurant){ business in
                                         
@@ -116,7 +114,7 @@ struct HomeView: View {
                             }
                             .padding()
                             
-                            ScrollView(.horizontal, showsIndicators: true){
+                            ScrollView(.horizontal, showsIndicators: false){
                                 HStack(spacing: 15){
                                     ForEach(model.sight){ business in
                                         
@@ -168,7 +166,7 @@ struct HomeView: View {
                             
                             
                         }else if selectedCategory == .pickup{
-                            
+                            Text("Soon")
                         }
                         
                         

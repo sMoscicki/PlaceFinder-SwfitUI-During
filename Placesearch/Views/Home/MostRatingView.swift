@@ -13,9 +13,10 @@ struct MostRatingView: View {
   
     var body: some View {
         
-            let uiImage = UIImage(data: business.imageData ?? Data())
-            
+        let uiImage = UIImage(data: business.imageData ?? Data())
+        
         VStack(spacing: 2){
+            
             
             ZStack{
                 
@@ -58,10 +59,6 @@ struct MostRatingView: View {
             }
             .padding()
             
-            HStack{
-                
-                
-            }
             
         }
                         

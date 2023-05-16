@@ -23,7 +23,7 @@ struct TabBar: View {
             TabView(selection: $selectTab){
                 HomeView(selectedCategory: .mostRated)
                         .tag("Home")
-                    BusinessList()
+                CategoryView(listSelected: "all")
                         .tag("Category")
                     BusinessMap()
                         .tag("Map")
@@ -32,6 +32,9 @@ struct TabBar: View {
                   
             }
             .environmentObject(ContentModel())
+            .environmentObject(CategoryListModel())
+            
+            
             
             HStack{
                 ForEach(tabs, id: \.self){ tab in
