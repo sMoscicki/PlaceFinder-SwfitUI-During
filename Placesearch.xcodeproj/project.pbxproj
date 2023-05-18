@@ -10,6 +10,7 @@
 		049652862A0E7BFE0071E42C /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049652852A0E7BFE0071E42C /* TabBar.swift */; };
 		049652952A0E8C8E0071E42C /* MapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049652942A0E8C8E0071E42C /* MapDetailView.swift */; };
 		049652A72A0E9C740071E42C /* BusinessList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049652A62A0E9C740071E42C /* BusinessList.swift */; };
+		04A1CD932A167C8700668E4D /* NewHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1CD922A167C8700668E4D /* NewHomeView.swift */; };
 		04B37DE12A0C1F4200E06DA2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B37DE02A0C1F4200E06DA2 /* SettingsView.swift */; };
 		04D3EA6D2A0BF6EC00178499 /* PlacesearchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D3EA6C2A0BF6EC00178499 /* PlacesearchApp.swift */; };
 		04D3EA6F2A0BF6EC00178499 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D3EA6E2A0BF6EC00178499 /* LaunchView.swift */; };
@@ -42,6 +43,7 @@
 		049652852A0E7BFE0071E42C /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		049652942A0E8C8E0071E42C /* MapDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDetailView.swift; sourceTree = "<group>"; };
 		049652A62A0E9C740071E42C /* BusinessList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessList.swift; sourceTree = "<group>"; };
+		04A1CD922A167C8700668E4D /* NewHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHomeView.swift; sourceTree = "<group>"; };
 		04B37DE02A0C1F4200E06DA2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		04D3EA692A0BF6EC00178499 /* Placesearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Placesearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D3EA6C2A0BF6EC00178499 /* PlacesearchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesearchApp.swift; sourceTree = "<group>"; };
@@ -104,6 +106,14 @@
 				04E36ECC2A10DD4A00805972 /* BusinessDetail.swift */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		04A1CD912A167C6E00668E4D /* NewView */ = {
+			isa = PBXGroup;
+			children = (
+				04A1CD922A167C8700668E4D /* NewHomeView.swift */,
+			);
+			path = NewView;
 			sourceTree = "<group>";
 		};
 		04B37DDC2A0C182700E06DA2 /* Map */ = {
@@ -169,6 +179,7 @@
 		04D3EA7A2A0BF74900178499 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				04A1CD912A167C6E00668E4D /* NewView */,
 				04F9A40B2A13F8BA0033E844 /* Onboarding */,
 				04F9A4082A13F8650033E844 /* Denied */,
 				049652932A0E8B170071E42C /* TabBar */,
@@ -332,6 +343,7 @@
 			files = (
 				04E36ECD2A10DD4A00805972 /* BusinessDetail.swift in Sources */,
 				04D871DE2A12331D00664CA5 /* MostRatingView.swift in Sources */,
+				04A1CD932A167C8700668E4D /* NewHomeView.swift in Sources */,
 				04D871DB2A12308E00664CA5 /* HomeView.swift in Sources */,
 				04D3EA842A0BFF4700178499 /* Constants.swift in Sources */,
 				04D3EA7F2A0BF77C00178499 /* Business.swift in Sources */,

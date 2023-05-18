@@ -51,11 +51,6 @@ struct BusinessRow: View {
                 .padding([.leading, .horizontal], 30)
             }
         }
-        
-        
-        
-        
-        
     }
 }
 

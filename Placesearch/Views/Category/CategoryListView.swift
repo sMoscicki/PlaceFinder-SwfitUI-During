@@ -31,6 +31,7 @@ struct CategoryListView: View {
                                 NavigationLink(destination: BusinessDetail(business: business), label: {
                                     
                                         BusinessRow(business: business)
+                            
                                 })
                             }
                             
@@ -75,7 +76,7 @@ struct CategoryListView: View {
                 }
             }
             .background(Color("TabBarColor").opacity(0.4))
+            
         }
-        .navigationBarBackButtonHidden(true)
     }
 }

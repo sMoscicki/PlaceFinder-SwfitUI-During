@@ -26,12 +26,8 @@ struct BusinessDetail: View {
         
         let uiImage = UIImage(data: business.imageData ?? Data())
         ScrollView{
-            VStack{
-                Image(uiImage: uiImage ?? UIImage())
-                    .resizable()
-                    .frame(width: 400, height: 400)
-                    .cornerRadius(10)
             
+            VStack{
                 
                 HStack{
                     VStack{
@@ -42,13 +38,68 @@ struct BusinessDetail: View {
                     Spacer()
                     VStack(alignment: .leading){
                         Image("regular_\(business.rating ?? 0)")
-                        Text("\(String(business.reviewCount ?? 0)) Reviews")
+                        
+                        Text("(\(String(business.reviewCount ?? 0)) Reviews)")
+                            .foregroundColor(.gray).opacity(0.7)
+                            .font(Font.custom("OktaUltraLight", size: 10))
                     }
                 }
                 .padding()
                 
                 
+                ZStack{
+                    
+                    Image(uiImage: uiImage ?? UIImage())
+                        .resizable()
+                        .frame(width: 400, height: 400)
+                        .cornerRadius(10)
+                    
+                    
+                        
+                        ZStack{
+                            Rectangle()
+                                .frame(height: 50)
+                                .foregroundColor((business.isClosed ?? true) ? .red : .green)
+                                .cornerRadius(10)
+                            
+                            
+                            Spacer()
+                            
+                            HStack{
+                                
+                                ZStack{
+                                    Circle()
+                                        .frame(width: 45, height: 45)
+                                        .foregroundColor(checkAvailableTransactions(checkTransactions: "pickup") ? .green : .red)
+                                    
+                                    ZStack{
+                                        Circle()
+                                            .frame(width: 40, height: 40)
+                                            .foregroundColor(.white)
+                                        
+                                        Image("order")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 30, height: 30)
+                                    }
+                                    
+                                }
+                                
+                                
+                                Text((business.isClosed ?? true) ? "Closed" : "Open")
+                                    .font(Font.custom("OktaUltraLight", size: 18))
+                                    .bold()
+                                    .foregroundColor(.white)
+                                
+                            }
+                            .padding()
+                            
+                            
+                            
+                    }
+                }
                 
+ 
                 ZStack{
                     Rectangle()
                         .frame(height: 20)
@@ -166,6 +217,9 @@ struct BusinessDetail: View {
             }
             .padding()
         }
+        .background(Color("TabBarColor").opacity(0.4))
         .padding(.bottom, 80)
+        .padding(.top, 1)
+        .ignoresSafeArea()
     }
 }
